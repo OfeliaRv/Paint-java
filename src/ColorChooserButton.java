@@ -71,6 +71,3 @@ public class ColorChooserButton extends JButton {
         return icon;
     }
 }
-
-
-//not tested

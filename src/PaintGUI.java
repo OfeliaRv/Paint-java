@@ -35,7 +35,7 @@ public class PaintGUI {
 
             Container container = frame.getContentPane();
             container.setLayout(new BorderLayout());
-            final DrawArea drawArea = new DrawArea();
+              drawArea = new DrawArea();
             container.add(drawArea, BorderLayout.CENTER);
 
             JPanel controls = new JPanel();

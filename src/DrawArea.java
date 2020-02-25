@@ -75,4 +75,12 @@ public class DrawArea extends JComponent {
     public void yellow(){
         graphics2D.setPaint(Color.yellow);
     }
+
+    public void custom(Color newColor){
+        graphics2D.setPaint(newColor);
+    }
+
+    public Graphics2D getGraphics2D() {
+        return graphics2D;
+    }
 }

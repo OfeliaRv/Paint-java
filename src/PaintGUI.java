@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.Color;
 
 
 public class PaintGUI {
@@ -8,25 +11,48 @@ public class PaintGUI {
     private DrawArea drawArea;
     private JButton blackBtn, redBtn, greenBtn, magentaBtn, yellowBtn, blueBtn, clearBtn;
     private JSlider brushWidth;
+    private Color current;
+    private Cursor cursor;
 
+    ChangeListener changeListener = new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent changeEvent) {
+            JSlider source = (JSlider) changeEvent.getSource();
+            drawArea.getGraphics2D().setStroke(new BasicStroke(source.getValue()));
+
+        }
+    };
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == clearBtn) {
+
                 drawArea.clearArea();
+                drawArea.custom(current);
             } else if (e.getSource() == blackBtn) {
                 drawArea.black();
+                current = Color.black;
             } else if (e.getSource() == blueBtn) {
                 drawArea.blue();
+                current = Color.blue;
             } else if (e.getSource() == greenBtn) {
                 drawArea.green();
+                current = Color.green;
             } else if (e.getSource() == redBtn) {
                 drawArea.red();
+                current = Color.red;
             } else if (e.getSource() == magentaBtn) {
                 drawArea.magenta();
+                current = Color.magenta;
             } else if (e.getSource() == yellowBtn) {
                 drawArea.yellow();
-            }
+                current = Color.yellow;
+            } else if (e.getSource() == colorChooser) {
+                Color newColor = JColorChooser.showDialog(null, "Choose a color", current);
+                drawArea.custom(newColor);
+                colorChooser.setSelectedColor(newColor);
+                current = newColor;
+        }
         }
     };
 
@@ -41,8 +67,11 @@ public class PaintGUI {
             JPanel controls = new JPanel();
 
             colorChooser = new ColorChooserButton(Color.black);
+            colorChooser.addActionListener(actionListener);
 
-            brushWidth = new JSlider();
+            brushWidth = new JSlider(JSlider.HORIZONTAL,0,50,0);
+            brushWidth.addChangeListener(changeListener);
+
 
             clearBtn = new JButton("Clear");
             clearBtn.addActionListener(actionListener);
@@ -78,10 +107,17 @@ public class PaintGUI {
 
             container.add(controls, BorderLayout.NORTH);
 
-            frame.setSize(600, 600);
+            frame.setSize(1000, 1000);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
 
         }
+
+    public DrawArea getDrawArea() {
+        return drawArea;
+    }
+
+
+
 }
 

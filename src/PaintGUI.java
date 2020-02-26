@@ -13,7 +13,8 @@ public class PaintGUI {
     private JSlider brushWidth;
     private Color current;
     private Cursor cursor;
-
+    private DrawShapes drawShapes;
+    private JButton drawButton;
     ChangeListener changeListener = new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent changeEvent) {
@@ -32,26 +33,34 @@ public class PaintGUI {
             } else if (e.getSource() == blackBtn) {
                 drawArea.black();
                 current = Color.black;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == blueBtn) {
                 drawArea.blue();
                 current = Color.blue;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == greenBtn) {
                 drawArea.green();
                 current = Color.green;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == redBtn) {
                 drawArea.red();
                 current = Color.red;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == magentaBtn) {
                 drawArea.magenta();
                 current = Color.magenta;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == yellowBtn) {
                 drawArea.yellow();
                 current = Color.yellow;
+                colorChooser.setSelectedColor(current);
             } else if (e.getSource() == colorChooser) {
                 Color newColor = JColorChooser.showDialog(null, "Choose a color", current);
                 drawArea.custom(newColor);
                 colorChooser.setSelectedColor(newColor);
                 current = newColor;
+        } else if (e.getSource() == drawButton) {
+                drawArea.toggleDrawFigure();
         }
         }
     };
@@ -65,6 +74,10 @@ public class PaintGUI {
             container.add(drawArea, BorderLayout.CENTER);
 
             JPanel controls = new JPanel();
+
+
+            drawButton = new JButton("Draw Shapes");
+            drawButton.addActionListener(actionListener);
 
             colorChooser = new ColorChooserButton(Color.black);
             colorChooser.addActionListener(actionListener);
@@ -94,6 +107,7 @@ public class PaintGUI {
             yellowBtn = new JButton("Yellow");
             yellowBtn.addActionListener(actionListener);
 
+            controls.add(drawButton);
             controls.add(colorChooser);
             controls.add(clearBtn);
             controls.add(redBtn);

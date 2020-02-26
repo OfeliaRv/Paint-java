@@ -66,4 +66,6 @@ public class ColorChooserButton extends JButton {
         ImageIcon icon = new ImageIcon(image);
         return icon;
     }
+
+
 }

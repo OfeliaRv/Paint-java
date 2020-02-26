@@ -6,6 +6,7 @@ public class DrawArea extends JComponent {
     private Image image;
     private Graphics2D graphics2D;
     private int currentX, currentY, oldX, oldY;
+    private int drawFigure = 0;
 
     public DrawArea(){
        setDoubleBuffered(false);
@@ -15,6 +16,43 @@ public class DrawArea extends JComponent {
                oldX = e.getX();
                oldY = e.getY();
            }
+           public void mouseReleased(MouseEvent e) {
+               currentX = e.getX();
+               currentY = e.getY();
+               if (drawFigure == 1) {
+                   if (graphics2D != null) {
+                        if (currentX > oldX && currentY > oldY) {
+                            graphics2D.drawRect(oldX, oldY, currentX - oldX, currentY - oldY);
+                        }else if(currentX < oldX && currentY < oldY){
+                            graphics2D.drawRect(currentX, currentY, oldX - currentX, oldY - currentY);
+                        }else if(currentX < oldX && currentY > oldY){
+                            graphics2D.drawRect(currentX, oldY, oldX - currentX, currentY - oldY);
+                        }else if(currentX > oldX && currentY < oldY) {
+                           graphics2D.drawRect(oldX, currentY, currentX - oldX, oldY - currentY);
+                       }
+
+                       repaint();
+
+                   }
+               }
+               if (drawFigure == 2) {
+                   if (graphics2D != null) {
+                       if (currentX > oldX && currentY > oldY) {
+                           graphics2D.drawOval(oldX, oldY, currentX - oldX, currentY - oldY);
+                       }else if(currentX < oldX && currentY < oldY){
+                           graphics2D.drawOval(currentX, currentY, oldX - currentX, oldY - currentY);
+                       }else if(currentX < oldX && currentY > oldY){
+                           graphics2D.drawOval(currentX, oldY, oldX - currentX, currentY - oldY);
+                       }else if(currentX > oldX && currentY < oldY) {
+                           graphics2D.drawOval(oldX, currentY, currentX - oldX, oldY - currentY);
+                       }
+
+                       repaint();
+
+                   }
+               }
+
+           }
        });
 
        addMouseMotionListener(new MouseMotionAdapter() {
@@ -22,13 +60,15 @@ public class DrawArea extends JComponent {
            public void mouseDragged(MouseEvent e) {
                currentX = e.getX();
                currentY = e.getY();
-
-               if (graphics2D != null) {
-                    graphics2D.drawLine(oldX, oldY, currentX, currentY);
-                    repaint(); //refresh draw area
-                    oldX = currentX;
-                    oldY = currentY;
+               if (drawFigure == 0) {
+                   if (graphics2D != null) {
+                       graphics2D.drawLine(oldX, oldY, currentX, currentY);
+                       repaint(); //refresh draw area
+                       oldX = currentX;
+                       oldY = currentY;
+                                          }
                }
+
            }
        });
     }
@@ -51,6 +91,7 @@ public class DrawArea extends JComponent {
         graphics2D.setPaint(Color.black);
         repaint();
     }
+
 
     public void red(){
         graphics2D.setPaint(Color.red);
@@ -83,4 +124,18 @@ public class DrawArea extends JComponent {
     public Graphics2D getGraphics2D() {
         return graphics2D;
     }
+    public void toggleDrawFigure() {
+        if (drawFigure == 0) {
+            this.drawFigure = 1;
+        } else {
+            if (drawFigure == 1) {
+                this.drawFigure = 2;
+            } else {
+                if (drawFigure == 2) {
+                    this.drawFigure = 0;
+                }
+            }
+        }
+    }
+
 }

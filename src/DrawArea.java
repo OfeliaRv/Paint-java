@@ -33,7 +33,6 @@ public class DrawArea extends JComponent {
                         }
 
                         repaint();
-
                     }
                 }
                 if (drawFigure == 2) {

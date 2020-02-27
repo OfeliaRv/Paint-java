@@ -16,11 +16,11 @@ public class DrawShapes extends JComponent {
     private Graphics2D g2;
     private static final long serialVersionUID = 1L;
     private DrawShapes drawShape;
-    private Stack<DrawShapes> drawShapesList;
+    Stack<DrawShapes> drawShapesList;
 
     public DrawShapes() {
-        DrawShapes drawShape = new DrawShapes();
-        Stack<DrawShapes> drawShapesList = new Stack<>();
+        //drawShape = new DrawShapes();
+        drawShapesList = new Stack();
 
         setSize(new Dimension(320, 320));
         setVisible(true);

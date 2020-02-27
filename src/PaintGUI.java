@@ -7,8 +7,8 @@ import java.io.*;
 
 public class PaintGUI {
     private ColorChooserButton colorChooser;
-    private SaveYourDrawingToFile save;
     private DrawArea drawArea;
+    private DrawShapes drawShapes;
     private JButton blackBtn, redBtn, greenBtn, magentaBtn, yellowBtn, blueBtn, clearBtn;
     private JSlider brushWidth;
     private Color current;
@@ -63,7 +63,7 @@ public class PaintGUI {
             } else if (e.getSource() == drawButton) {
                 drawArea.toggleDrawFigure();
             } else if (e.getSource() == saveBtn) {
-                save.saveImage();
+                SaveYourDrawingToFile.saveToFile("C:/Users/ofarx/Desktop/myfile1.paint", drawShapes.drawShapesList);
             }
         }
     };
@@ -74,6 +74,9 @@ public class PaintGUI {
         Container container = frame.getContentPane();
         container.setLayout(new BorderLayout());
         drawArea = new DrawArea();
+        drawShapes = new DrawShapes();
+
+
         container.add(drawArea, BorderLayout.CENTER);
 
         JPanel controls = new JPanel();

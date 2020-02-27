@@ -70,13 +70,13 @@ public class PaintGUI {
 
             Container container = frame.getContentPane();
             container.setLayout(new BorderLayout());
-              drawArea = new DrawArea();
+            drawArea = new DrawArea();
             container.add(drawArea, BorderLayout.CENTER);
 
             JPanel controls = new JPanel();
 
 
-            drawButton = new JButton("Draw Shapes");
+            drawButton = new JButton("Rectangle/Circle");
             drawButton.addActionListener(actionListener);
 
             colorChooser = new ColorChooserButton(Color.black);
@@ -89,22 +89,34 @@ public class PaintGUI {
             clearBtn = new JButton("Clear");
             clearBtn.addActionListener(actionListener);
 
-            blackBtn = new JButton("Black");
+            blackBtn = new JButton();
+            blackBtn.setBackground(Color.black);
+            blackBtn.setPreferredSize(new Dimension(20, 20));
             blackBtn.addActionListener(actionListener);
 
-            redBtn = new JButton("Red");
+            redBtn = new JButton();
+            redBtn.setBackground(Color.red);
+            redBtn.setPreferredSize(new Dimension(20, 20));
             redBtn.addActionListener(actionListener);
 
-            greenBtn = new JButton("Green");
+            greenBtn = new JButton();
+            greenBtn.setBackground(Color.green);
+            greenBtn.setPreferredSize(new Dimension(20, 20));
             greenBtn.addActionListener(actionListener);
 
-            blueBtn = new JButton("Blue");
+            blueBtn = new JButton();
+            blueBtn.setBackground(Color.blue);
+            blueBtn.setPreferredSize(new Dimension(20, 20));
             blueBtn.addActionListener(actionListener);
 
-            magentaBtn = new JButton("Magenta");
+            magentaBtn = new JButton();
+            magentaBtn.setBackground(Color.magenta);
+            magentaBtn.setPreferredSize(new Dimension(20, 20));
             magentaBtn.addActionListener(actionListener);
 
-            yellowBtn = new JButton("Yellow");
+            yellowBtn = new JButton();
+            yellowBtn.setBackground(Color.yellow);
+            yellowBtn.setPreferredSize(new Dimension(20, 20));
             yellowBtn.addActionListener(actionListener);
 
             controls.add(drawButton);
@@ -112,6 +124,7 @@ public class PaintGUI {
             controls.add(clearBtn);
             controls.add(redBtn);
             controls.add(blueBtn);
+            controls.add(magentaBtn);
             controls.add(greenBtn);
             controls.add(yellowBtn);
             controls.add(blackBtn);

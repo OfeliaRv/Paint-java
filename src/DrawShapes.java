@@ -6,6 +6,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import javax.swing.*;
 
@@ -14,8 +15,12 @@ public class DrawShapes extends JComponent {
     private int currentX, currentY, oldX, oldY, drawFigures;
     private Graphics2D g2;
     private static final long serialVersionUID = 1L;
+    private DrawShapes drawShape;
+    private Stack<DrawShapes> drawShapesList;
 
     public DrawShapes() {
+        DrawShapes drawShape = new DrawShapes();
+        Stack<DrawShapes> drawShapesList = new Stack<>();
 
         setSize(new Dimension(320, 320));
         setVisible(true);
@@ -30,12 +35,21 @@ public class DrawShapes extends JComponent {
                 mainGraphics.setStroke(new BasicStroke(2));
                 mainGraphics.setColor(Color.red);
 
-                mainGraphics.drawRect(50,70,200,20);
+                mainGraphics.drawRect(50, 70, 200, 20);
                 addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         oldX = e.getX();
                         oldY = e.getY();
+                    }
+                });
+
+                addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        currentX = e.getX();
+                        currentY = e.getY();
+                        drawShapesList.add(drawShape);
                     }
                 });
 
@@ -62,6 +76,8 @@ public class DrawShapes extends JComponent {
                 });
             }
         };
-
+    }
+    public Stack<DrawShapes> getDrawShapesList() {
+        return drawShapesList;
     }
 }

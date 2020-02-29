@@ -48,7 +48,6 @@ public class DrawArea extends JComponent {
                         }
 
                         repaint();
-
                     }
                 }
 
@@ -68,7 +67,6 @@ public class DrawArea extends JComponent {
                         oldY = currentY;
                     }
                 }
-
             }
         });
     }
@@ -130,11 +128,17 @@ public class DrawArea extends JComponent {
             this.drawFigure = 1;
         } else {
             if (drawFigure == 1) {
-                this.drawFigure = 2;
-            } else {
-                if (drawFigure == 2) {
-                    this.drawFigure = 0;
-                }
+                this.drawFigure = 0;
+            }
+        }
+    }
+
+    public void toggleCircle() {
+        if (drawFigure == 1) {
+            this.drawFigure = 2;
+        } else {
+            if (drawFigure == 2) {
+                this.drawFigure = 0;
             }
         }
     }

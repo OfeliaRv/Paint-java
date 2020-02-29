@@ -2,18 +2,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.io.*;
-
 
 public class PaintGUI {
     private ColorChooserButton colorChooser;
     private DrawArea drawArea;
-    private DrawShapes drawShapes;
+    private Shapes drawShapes;
     private JButton blackBtn, redBtn, greenBtn, magentaBtn, yellowBtn, blueBtn, clearBtn;
     private JSlider brushWidth;
     private Color current;
-    private Cursor cursor;
     private JButton drawButton;
+    private JButton drawButton2;
     private JButton saveBtn;
 
     ChangeListener changeListener = new ChangeListener() {
@@ -62,7 +60,10 @@ public class PaintGUI {
                 current = newColor;
             } else if (e.getSource() == drawButton) {
                 drawArea.toggleDrawFigure();
+            } else if (e.getSource() == drawButton2) {
+                drawArea.toggleCircle();
             } else if (e.getSource() == saveBtn) {
+                //to test this, please enter your own path
                 SaveYourDrawingToFile.saveToFile("C:/Users/ofarx/Desktop/myfile1.paint", drawShapes.drawShapesList);
             }
         }
@@ -70,22 +71,25 @@ public class PaintGUI {
 
     public void showApp() {
         JFrame frame = new JFrame("My Paint App");
-
         Container container = frame.getContentPane();
         container.setLayout(new BorderLayout());
         drawArea = new DrawArea();
-        drawShapes = new DrawShapes();
+        drawShapes = new Shapes();
 
-
+        //adding main drawArea area to the frame
         container.add(drawArea, BorderLayout.CENTER);
 
         JPanel controls = new JPanel();
 
+        //creating all the elements and assigning methods to them
         saveBtn = new JButton("Save");
         saveBtn.addActionListener(actionListener);
 
-        drawButton = new JButton("Rectangle/Circle");
+        drawButton = new JButton("Rectangle");
         drawButton.addActionListener(actionListener);
+
+        drawButton2 = new JButton("Circle");
+        drawButton2.addActionListener(actionListener);
 
         colorChooser = new ColorChooserButton(Color.black);
         colorChooser.addActionListener(actionListener);
@@ -126,8 +130,10 @@ public class PaintGUI {
         yellowBtn.setPreferredSize(new Dimension(20, 20));
         yellowBtn.addActionListener(actionListener);
 
+        //adding components to the controls
         controls.add(saveBtn);
         controls.add(drawButton);
+        controls.add(drawButton2);
         controls.add(colorChooser);
         controls.add(clearBtn);
         controls.add(redBtn);
@@ -136,17 +142,15 @@ public class PaintGUI {
         controls.add(greenBtn);
         controls.add(yellowBtn);
         controls.add(blackBtn);
-
-        //for brush width
         controls.add(brushWidth);
 
-        container.add(controls, BorderLayout.NORTH);
+        //adding control panel to the main container
+        container.add(controls, BorderLayout.NORTH); //north - means placing on top
 
         frame.setSize(1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
-
 };
 
 
